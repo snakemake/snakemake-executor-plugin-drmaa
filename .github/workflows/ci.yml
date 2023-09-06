@@ -150,8 +150,9 @@ jobs:
       
       - name: Setup drmaa
         run: |
-          sudo apt-get install -y libslurm-dev
-          # TODO what else do we need here?
+          sudo add-apt-repository ppa:natefoo/slurm-drmaa
+          sudo apt-get update
+          sudo apt-get install -y slurm-drmaa
 
       - name: Install poetry
         run: pipx install poetry
