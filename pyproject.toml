@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "snakemake-executor-plugin-drmaa"
+version = "0.1.0"
+description = "A snakemake executor plugin for submission of jobs via DRMAA."
+authors = ["Johannes Koester <johannes.koester@uni-due.de>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+snakemake-interface-executor-plugins = "^1.2.0"
+drmaa = "^0.7.9"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.7.0"
+flake8 = "^6.1.0"
+coverage = "^7.3.1"
+pytest = "^7.4.1"
+snakemake = "^7.32.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
