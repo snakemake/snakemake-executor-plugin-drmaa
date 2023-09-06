@@ -20,21 +20,30 @@ from snakemake_interface_common.exceptions import WorkflowError
 # Omit this class if you don't need any.
 @dataclass
 class ExecutorSettings(ExecutorSettingsBase):
-    args: Optional[str] = field(default=None, metadata={
-        "help": "Args that shall be passed to each DRMAA job submission. Can be used to "
-        "specify options of the underlying cluster system, "
-        "thereby using the job properties name, rulename, input, output, params, wildcards, log, "
-        "threads and dependencies, e.g.: "
-        "'-pe threaded {threads}'. Note that ARGS must be given in quotes."
-    })
-    log_dir: Optional[Path] = field(default=None, metadata={
-        "help": "Directory in which stdout and stderr files of DRMAA"
-        " jobs will be written. The value may be given as a relative path,"
-        " in which case Snakemake will use the current invocation directory"
-        " as the origin. If given, this will override any given '-o' and/or"
-        " '-e' native specification. If not given, all DRMAA stdout and"
-        " stderr files are written to the current working directory."
-    })
+    args: Optional[str] = field(
+        default=None,
+        metadata={
+            "help": "Args that shall be passed to each DRMAA job submission. "
+            "Can be used to "
+            "specify options of the underlying cluster system, "
+            "thereby using the job properties name, rulename, input, "
+            "output, params, wildcards, log, "
+            "threads and dependencies, e.g.: "
+            "'-pe threaded {threads}'. Note that ARGS must be given "
+            "in quotes."
+        },
+    )
+    log_dir: Optional[Path] = field(
+        default=None,
+        metadata={
+            "help": "Directory in which stdout and stderr files of DRMAA"
+            " jobs will be written. The value may be given as a relative path,"
+            " in which case Snakemake will use the current invocation directory"
+            " as the origin. If given, this will override any given '-o' and/or"
+            " '-e' native specification. If not given, all DRMAA stdout and"
+            " stderr files are written to the current working directory."
+        },
+    )
 
 
 # Required:
@@ -125,12 +134,12 @@ class Executor(RemoteExecutor):
             drmaa.InternalException,
             drmaa.InvalidAttributeValueException,
         ) as e:
-            self.logger.error(
-                f"Error submitting job (DRMAA error {e})"
-            )
+            self.logger.error(f"Error submitting job (DRMAA error {e})")
             self.report_job_error(job)
-        
-        self.logger.info(f"Submitted DRMAA job {job.jobid} with external jobid {jobid}.")
+
+        self.logger.info(
+            f"Submitted DRMAA job {job.jobid} with external jobid {jobid}."
+        )
         self.report_job_submission(
             SubmittedJobInfo(job, external_jobid=jobid, aux={"jobscript": jobscript})
         )
@@ -153,12 +162,14 @@ class Executor(RemoteExecutor):
         #
         # async with self.status_rate_limiter:
         #    # query remote middleware here
+        import drmaa
+
         for active_job in active_jobs:
             jobscript = active_job.aux["jobscript"]
             async with self.status_rate_limiter:
                 try:
                     retval = self.session.jobStatus(active_job.external_jobid)
-                except drmaa.ExitTimeoutException as e:
+                except drmaa.ExitTimeoutException:
                     # job still active
                     yield active_job
                     continue
@@ -209,7 +220,9 @@ class Executor(RemoteExecutor):
 
         for job_info in active_jobs:
             try:
-                self.session.control(job_info.external_jobid, JobControlAction.TERMINATE)
+                self.session.control(
+                    job_info.external_jobid, JobControlAction.TERMINATE
+                )
             except (InvalidJobException, InternalException):
                 # This is common - logging a warning would probably confuse the user.
                 pass
