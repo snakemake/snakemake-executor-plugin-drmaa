@@ -152,7 +152,7 @@ jobs:
         run: |
           sudo add-apt-repository ppa:natefoo/slurm-drmaa
           sudo apt-get update
-          sudo apt-get install -y slurm-drmaa
+          sudo apt-get install -y slurm-drmaa1
 
       - name: Install poetry
         run: pipx install poetry
