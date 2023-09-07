@@ -185,7 +185,7 @@ class Executor(RemoteExecutor):
                     os.remove(jobscript)
                     self.print_job_error(active_job.job)
                     self.print_cluster_job_error(
-                        active_job, self.dag.jobid(active_job.job)
+                        active_job,
                     )
                     self.report_job_error(active_job.job)
                 else:
