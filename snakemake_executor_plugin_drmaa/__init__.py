@@ -119,6 +119,8 @@ class Executor(RemoteExecutor):
         if self.drmaa_log_dir:
             os.makedirs(self.drmaa_log_dir, exist_ok=True)
 
+        job_info = SubmittedJobInfo(job, aux={"jobscript": jobscript})
+
         try:
             jt = self.session.createJobTemplate()
             jt.remoteCommand = jobscript
@@ -128,21 +130,22 @@ class Executor(RemoteExecutor):
                 jt.errorPath = ":" + self.drmaa_log_dir
             jt.jobName = os.path.basename(jobscript)
 
-            jobid = self.session.runJob(jt)
+            job_info.external_jobid = self.session.runJob(jt)
         except (
             drmaa.DeniedByDrmException,
             drmaa.InternalException,
             drmaa.InvalidAttributeValueException,
         ) as e:
-            self.logger.error(f"Error submitting job (DRMAA error {e})")
-            self.report_job_error(job)
+            self.report_job_error(
+                job_info,
+                msg=f"Error submitting job (DRMAA error {e})",
+            )
 
         self.logger.info(
-            f"Submitted DRMAA job {job.jobid} with external jobid {jobid}."
+            f"Submitted DRMAA job {job.jobid} with external jobid "
+            f"{job_info.external_jobid}."
         )
-        self.report_job_submission(
-            SubmittedJobInfo(job, external_jobid=jobid, aux={"jobscript": jobscript})
-        )
+        self.report_job_submission(job_info)
         self.session.deleteJobTemplate(jt)
 
     async def check_active_jobs(
@@ -176,15 +179,14 @@ class Executor(RemoteExecutor):
                 except (drmaa.InternalException, Exception) as e:
                     self.logger.error(f"DRMAA Error: {e}")
                     os.remove(jobscript)
-                    self.report_job_error(active_job.job)
+                    self.report_job_error(active_job)
                     continue
                 if retval == drmaa.JobState.DONE:
                     os.remove(jobscript)
-                    self.report_job_success(active_job.job)
+                    self.report_job_success(active_job)
                 elif retval == drmaa.JobState.FAILED:
                     os.remove(jobscript)
-                    self.print_job_error(active_job)
-                    self.report_job_error(active_job.job)
+                    self.report_job_error(active_job)
                 else:
                     # still running
                     yield active_job
