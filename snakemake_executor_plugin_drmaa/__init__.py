@@ -92,7 +92,7 @@ class Executor(RemoteExecutor):
         except RuntimeError as e:
             raise WorkflowError(f"Error loading drmaa support:\n{e}")
         self.session = drmaa.Session()
-        self.drmaa_args = self.workflow.executor_settings.drmaa_args
+        self.drmaa_args = self.workflow.executor_settings.args
         self.drmaa_log_dir = self.workflow.executor_settings.log_dir
         self.suspended_msg = set()
         self.session.initialize()
