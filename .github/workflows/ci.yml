@@ -72,7 +72,7 @@ jobs:
         run: |
           sudo add-apt-repository ppa:natefoo/slurm-drmaa
           sudo apt-get update
-          sudo apt-get install -y slurm-drmaa1
+          sudo apt-get install -y slurm-drmaa1 gridengine-drmaa1.0 gridengine-drmaa-dev
 
       - name: Install poetry
         run: pipx install poetry
