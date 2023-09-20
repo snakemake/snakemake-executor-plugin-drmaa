@@ -9,7 +9,7 @@ from snakemake_interface_executor_plugins import ExecutorSettingsBase, CommonSet
 from snakemake_interface_executor_plugins.workflow import WorkflowExecutorInterface
 from snakemake_interface_executor_plugins.logging import LoggerExecutorInterface
 from snakemake_interface_executor_plugins.jobs import (
-    ExecutorJobInterface,
+    JobExecutorInterface,
 )
 from snakemake_interface_common.exceptions import WorkflowError
 
@@ -97,7 +97,7 @@ class Executor(RemoteExecutor):
         self.suspended_msg = set()
         self.session.initialize()
 
-    def run_job(self, job: ExecutorJobInterface):
+    def run_job(self, job: JobExecutorInterface):
         # Implement here how to run a job.
         # You can access the job's resources, etc.
         # via the job object.
@@ -230,7 +230,7 @@ class Executor(RemoteExecutor):
         super().shutdown()
         self.session.exit()
 
-    def get_job_exec_prefix(self, job: ExecutorJobInterface):
+    def get_job_exec_prefix(self, job: JobExecutorInterface):
         if self.workflow.storage_settings.assume_shared_fs:
             return f"cd {shlex.quote(self.workflow.workdir_init)}"
         else:
