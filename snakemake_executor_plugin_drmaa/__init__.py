@@ -109,7 +109,7 @@ class Executor(RemoteExecutor):
         self.write_jobscript(job, jobscript)
 
         try:
-            drmaa_args = job.format_wildcards(self.drmaa_args)
+            drmaa_args = job.format_wildcards(self.drmaa_args or "")
         except AttributeError as e:
             raise WorkflowError(str(e), rule=job.rule)
 
