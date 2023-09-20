@@ -84,18 +84,17 @@ class Executor(RemoteExecutor):
 
         try:
             import drmaa
-        except ImportError:
-            raise WorkflowError(
-                "Python support for DRMAA is not installed. "
-                "Please install it, e.g. with easy_install3 --user drmaa"
-            )
+            from drmaa.errors import AlreadyActiveSessionException
         except RuntimeError as e:
             raise WorkflowError(f"Error loading drmaa support:\n{e}")
         self.session = drmaa.Session()
         self.drmaa_args = self.workflow.executor_settings.args
         self.drmaa_log_dir = self.workflow.executor_settings.log_dir
         self.suspended_msg = set()
-        self.session.initialize()
+        try:
+            self.session.initialize()
+        except AlreadyActiveSessionException:
+            pass
 
     def run_job(self, job: JobExecutorInterface):
         # Implement here how to run a job.
