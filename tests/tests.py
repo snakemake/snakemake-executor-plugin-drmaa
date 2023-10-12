@@ -13,8 +13,8 @@ class TestWorkflowsBase(snakemake.common.tests.TestWorkflowsBase):
     def get_executor_settings(self) -> Optional[ExecutorSettingsBase]:
         return ExecutorSettings()
 
-    def get_default_remote_provider(self) -> Optional[str]:
+    def get_default_storage_provider(self) -> Optional[str]:
         return None
 
-    def get_default_remote_prefix(self) -> Optional[str]:
+    def get_default_storage_prefix(self) -> Optional[str]:
         return None
