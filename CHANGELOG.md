@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.3](https://github.com/snakemake/snakemake-executor-plugin-drmaa/compare/v0.1.2...v0.1.3) (2023-12-08)
+
+
+### Documentation
+
+* update metadata ([5bad1aa](https://github.com/snakemake/snakemake-executor-plugin-drmaa/commit/5bad1aa783cf3d3783146467c7a27881db6d5ba1))
+* update metadata ([2777d0b](https://github.com/snakemake/snakemake-executor-plugin-drmaa/commit/2777d0bf25e458a6df6c628985cd8ff15a030f70))
+
 ## [0.1.2](https://github.com/snakemake/snakemake-executor-plugin-drmaa/compare/v0.1.1...v0.1.2) (2023-11-30)
 
 
