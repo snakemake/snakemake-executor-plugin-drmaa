@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/snakemake/snakemake-executor-plugin-drmaa/compare/v0.1.1...v0.1.2) (2023-11-30)
+
+
+### Bug Fixes
+
+* adapt to interface changes ([bfe3aea](https://github.com/snakemake/snakemake-executor-plugin-drmaa/commit/bfe3aea37aee93cca0b00f337689dd6f1c299ee4))
+
 ## [0.1.1](https://github.com/snakemake/snakemake-executor-plugin-drmaa/compare/v0.1.0...v0.1.1) (2023-11-20)
 
 
