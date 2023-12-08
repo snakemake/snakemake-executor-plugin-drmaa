@@ -5,9 +5,9 @@ description = "A snakemake executor plugin for submission of jobs via DRMAA."
 authors = ["Johannes Koester <johannes.koester@uni-due.de>"]
 readme = "README.md"
 license = "MIT"
-repository = "https://github.com/snakemake/snakemake-executor-plugin-cluster-generic"
-documentation = "https://snakemake.github.io/snakemake-plugin-catalog/plugins/executor/cluster-generic.html"
-keywords = ["snakemake", "plugin", "executor", "cluster"]
+repository = "https://github.com/snakemake/snakemake-executor-plugin-drmaa"
+documentation = "https://snakemake.github.io/snakemake-plugin-catalog/plugins/executor/drmaa.html"
+keywords = ["snakemake", "plugin", "executor", "cluster", "drmaa"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
