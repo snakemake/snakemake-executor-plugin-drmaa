@@ -115,8 +115,8 @@ class Executor(RemoteExecutor):
             jt.remoteCommand = jobscript
             jt.nativeSpecification = drmaa_args
             if self.drmaa_log_dir:
-                jt.outputPath = ":" + self.drmaa_log_dir
-                jt.errorPath = ":" + self.drmaa_log_dir
+                jt.outputPath = f":{self.drmaa_log_dir}"
+                jt.errorPath = f":{self.drmaa_log_dir}"
             jt.jobName = os.path.basename(jobscript)
 
             job_info.external_jobid = self.session.runJob(jt)
