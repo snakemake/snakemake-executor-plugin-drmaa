@@ -184,7 +184,7 @@ class Executor(RemoteExecutor):
                         if active_job.job.jobid not in self.suspended_msg:
                             self.logger.warning(
                                 "Job {} (DRMAA id: {}) was suspended by {}.".format(
-                                    active_job.job.jobid, active_job.jobid, by
+                                    active_job.job.jobid, active_job.external_jobid, by
                                 )
                             )
                             self.suspended_msg.add(active_job.job.jobid)
