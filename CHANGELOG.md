@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.5](https://github.com/snakemake/snakemake-executor-plugin-drmaa/compare/v0.1.4...v0.1.5) (2024-09-07)
+
+
+### Bug Fixes
+
+* bugfix of faulty string concatenation ([#11](https://github.com/snakemake/snakemake-executor-plugin-drmaa/issues/11)) ([622d1a8](https://github.com/snakemake/snakemake-executor-plugin-drmaa/commit/622d1a8e8110c5464abae88329428dd689321234))
+* bugfix of jobid of suspended jobs message ([#10](https://github.com/snakemake/snakemake-executor-plugin-drmaa/issues/10)) ([39b1bcc](https://github.com/snakemake/snakemake-executor-plugin-drmaa/commit/39b1bcc97872a91dc5b0fbfb0338138d70570c35))
+
 ## [0.1.4](https://github.com/snakemake/snakemake-executor-plugin-drmaa/compare/v0.1.3...v0.1.4) (2024-03-12)
 
 
